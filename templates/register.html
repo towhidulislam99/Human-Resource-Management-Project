@@ -1,0 +1,120 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>R4 Group of Company</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+          <div class="row flex-grow">
+            <div class="col-lg-4 mx-auto">
+              <div class="auth-form-light text-left p-5">
+                <div class="brand-logo">
+                  <img src="{% static 'assets/images/logo.svg' %}">
+                </div>
+                <h4>New here?</h4>
+                {% if msg %}
+										{% for i in msg %}
+										<div class="alert alert-success">	
+										<h4 class="card-title">{{i}}</h4>
+										{% endfor %}
+									{% endif %}
+                <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+                <form class="pt-3" action="{% url 'signuppage_insert' %}" id="signup_form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect3">Select Role</label>
+                      <select class="form-control form-control-sm" id="exampleFormControlSelect3" class="role_id" name="role_id" >
+                        <option value="Select role">Select Role</option>
+                        {% for i in role_data %}
+                          <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                      </select>	
+                  </div>
+             
+
+                  <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" id="exampleInputfullname" name= "fullname" placeholder="fullname">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" name= "username" placeholder="Username">
+                  </div>
+                  <div class="form-group">
+                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" name= "email" placeholder="Email">
+                  </div>
+                  
+                  <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" id="phone" name= "phone" placeholder="phone number">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" class="form-control form-control-lg" id="password" name= "password" placeholder="Password">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="password" class="form-control form-control-lg" id="confirmpassword" name= "confirmpassword" placeholder="ConfirmPassword">
+                  </div>
+
+                  <div class="form-group">
+                  <input type="file" name="photo" id="fileupload" class="file-upload-default"  multiple>
+                    <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-gradient-primary" type="button"> <label for="fileupload">Photo upload</label></button>
+                          
+                        </span>
+                    </div>
+                </div>
+
+                  {% comment %} <div class="mb-4">
+                    <div class="form-check">
+                      <label class="form-check-label text-muted">
+                        <input type="checkbox" class="form-check-input"> I agree to all Terms & Conditions </label>
+                    </div>
+                  </div> {% endcomment %}
+
+                  <div class="mt-4">
+                    <input type="submit" class="btn btn-block btn-lg btn-gradient-primary mt-4" value = "SIGN UP">
+                   
+                  </div>
+                  <div class="text-center mt-4 font-weight-light"> Already have an account? <a href="login.html" class="text-primary">Login</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{% static 'assets/js/off-canvas.js' %}"></script>
+    <script src="{% static 'assets/js/hoverable-collapse.js' %}"></script>
+    <script src="{% static 'assets/js/misc.js' %}"></script>
+    <!-- endinject -->
+  </body>
+</html>

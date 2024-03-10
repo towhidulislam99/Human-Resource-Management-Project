@@ -1,0 +1,58 @@
+{%load static%}
+<!-- attendance_tracker.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Tracker</title>
+</head>
+<body>
+    <h1>Attendance Entries</h1>
+    <ul>
+        {% for entry in attendance_entries %}
+        <li>
+            {{ entry.employee_id }} - 
+            {% if entry.signin_time %}
+            Sign In: {{ entry.signin_time }} ({{ entry.Signin_place }})
+            {% endif %}
+            {% if entry.signout_time %}
+            Sign Out: {{ entry.signout_time }} ({{ entry.signout_place }}) - 
+            Working Hours: {{ entry.working_hour }} hours
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Function to handle button click
+            $('#inButton').click(function() {
+                saveAttendance('IN');
+            });
+
+            $('#outButton').click(function() {
+                saveAttendance('OUT');
+            });
+
+            // Function to save attendance via AJAX
+            function saveAttendance(signType) {
+                $.ajax({
+                    url: '{% url "save_attendance" %}',
+                    type: 'POST',
+                    data: {'employee_id': '1', 'sign_type': signType, 'place': 'Your Location'},  // Change 'Your Location' to actual location data
+                    success: function(response) {
+                        if (response.working_hours) {
+                            console.log('Working Hours:', response.working_hours);
+                        } else {
+                            console.log(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
